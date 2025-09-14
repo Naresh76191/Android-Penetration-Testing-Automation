@@ -10,7 +10,7 @@ ________________________________________________________________________________
 5. Medusa	- A modular framework designed for automated dynamic analysis of mobile apps, with support for both Android and iOS.
 _________________________________________________________________________________________________________________________________________________
 
-MobSF (Mobile Security Framework)
+**MobSF (Mobile Security Framework)**
 
 1. Signer Certificate
 The Signer Certificate section displays key details of the app's signing certificate, which include:
@@ -25,7 +25,7 @@ Hashes (SHA256, SHA1, MD5, SHA512): Various cryptographic hashes that help verif
    Notable entries include 'HTTP Connection' and 'HTTPS Connection' for networking operations, with HTTP specifically categorized as insecure for server communication. We also see an entry for the Java Reflection API, which is often used by malicious actors to obfuscate method names when called.
 _________________________________________________________________________________________________________________________________________________
 
-Quark 
+**Quark **
 Quark Engine, as stated in the official documentation, is "an open source software for automating analysis of suspicious Android application
 Key Features of Quark Engine
 1. Malware Scoring System	- Quark Engine assigns scores to detected behaviors based on severity and impact, providing a quantifiable measure of an app’s overall threat level.
@@ -46,4 +46,12 @@ Installation & Usage
 7.  ls -l quark-rules/rules
 8.  quark -s -a myapp.apk -r quark-rules
       -s is used to show the summary report, while the options -a and -r specify the APK file and set of rules accordingly
-   
+
+ OR install in kali
+ 1. sudo apt install quark-engine
+ 2.  git clone https://github.com/quark-engine/quark-rules
+ 3.  mkdir -p /root/.quark-engine
+ 4.  cp -r /home/kali/Desktop/quark-rules /root/.quark-engine/quark-rules
+ 5.   quark -a myapp.apk -s -r /home/kali/Desktop/quark-rules/rules       
+
+
