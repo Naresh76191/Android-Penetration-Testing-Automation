@@ -55,5 +55,8 @@ Key Features of Quark Engine
  5.   quark -a myapp.apk -s -r /home/kali/Desktop/quark-rules/rules
  6.   chown -R $(whoami):$(whoami) /home/kali/Desktop/quark-rules (if needed for permission)
  7.   chmod -R u+rX /home/kali/Desktop/quark-rules (if needed for permission)
+ 8.   quark -s -a myapp.apk -r  /home/kali/Desktop/quark-rules/rules -t 100 -w report.html
+ 9.   quark -s -a myapp.apk -r  /home/kali/Desktop/quark-rules/rules -t 100 -w /home/kali/Desktop/report2
+
 
 
