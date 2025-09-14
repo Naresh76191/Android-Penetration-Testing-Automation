@@ -25,7 +25,7 @@ Hashes (SHA256, SHA1, MD5, SHA512): Various cryptographic hashes that help verif
    Notable entries include 'HTTP Connection' and 'HTTPS Connection' for networking operations, with HTTP specifically categorized as insecure for server communication. We also see an entry for the Java Reflection API, which is often used by malicious actors to obfuscate method names when called.
 _________________________________________________________________________________________________________________________________________________
 
-**Quark **
+**Quark**
 Quark Engine, as stated in the official documentation, is "an open source software for automating analysis of suspicious Android application
 Key Features of Quark Engine
 1. Malware Scoring System	- Quark Engine assigns scores to detected behaviors based on severity and impact, providing a quantifiable measure of an app’s overall threat level.
@@ -36,7 +36,7 @@ Key Features of Quark Engine
 6. Dynamic Analysis -	Complements static analysis by observing app behavior at runtime, helping detect actions triggered only under specific conditions..
 7. Graphical Reports	- Quark generates visual representations of behavior flows and interactions, simplifying the understanding of complex threat patterns.
 
-Installation & Usage
+**Installation & Usage**
 1. python3 -m venv quark
 2. source quark/bin/activate
 3. pip3 install -U quark-engine
@@ -52,6 +52,8 @@ Installation & Usage
  2.  git clone https://github.com/quark-engine/quark-rules
  3.  mkdir -p /root/.quark-engine
  4.  cp -r /home/kali/Desktop/quark-rules /root/.quark-engine/quark-rules
- 5.   quark -a myapp.apk -s -r /home/kali/Desktop/quark-rules/rules       
+ 5.   quark -a myapp.apk -s -r /home/kali/Desktop/quark-rules/rules
+ 6.   chown -R $(whoami):$(whoami) /home/kali/Desktop/quark-rules (if needed for permission)
+ 7.   chmod -R u+rX /home/kali/Desktop/quark-rules (if needed for permission)
 
 
