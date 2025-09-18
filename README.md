@@ -60,3 +60,25 @@ Key Features of Quark Engine
 
 
 
+
+
+
+**********Android Local Storage Command**********
+
+Step 1 : adb shell
+step 2 : cd /data/data/<binary-file>
+Step 3: below command to find data
+1. find . -type f -exec strings {} \; | grep -iE "Bearer|access_token|Authorization"  
+2. find . -type f -exec grep -al "secret" {} \;
+3. find . -type f -exec strings {} \; | grep "secret"
+4. find . -type f -exec strings {} \; | grep -E "\b[6-9][0-9]{9}\b"
+5. find . -type f -exec strings {} \; | grep "mobilenumber/name/anything"
+6. find . -type f -exec grep -aiE "token|auth|bearer|access" {} \;
+7.cd shared_prefs
+  grep -aiE "token|auth|session" *
+8. find . -type f -exec strings {} \; | grep -iE "authorization|token|apikey|password|bearer|session|jwt|secret"
+9. find . -type f -exec strings {} \; | grep -E '[A-Za-z0-9+/=]{20,}' | grep -v '\.js'
+10. find . -type f -exec strings {} \; | grep -iE 'name|address|gender|mobile|phone|email'
+11. find . -type f -exec strings {} \; | grep -iE '(_updateSessionFromEvent|getSession|setSession|_session|session|sessions|onPanSessionStart|computeSecret|keyFromSecret|fromSecret|getSecret|PasswordBasedCipher|withXSRFToken|cancelToken|XSRF-TOKEN|X-XSRF-TOKEN|authorization|proxy-authorization|CancelToken)'
+12. find . -type f -exec strings {} \; | grep -E 'eyJ[A-Za-z0-9_-]{10,}.*\.eyJ[A-Za-z0-9_-]{10,}\..*'
+
