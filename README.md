@@ -105,7 +105,16 @@ Commands:
 25. run app.provider.update <content://provider_uri> --selection "<column1>=?" --selection-args 2 --string <column2> doe -> Update Existing Entries all data changes as per db or data is stored
 26. run app.provider.delete <content://provider_uri> --selection "<column1>=?" --selection-args 2 -> Delete Existing Entry (delete the entry with _id = 2 )
 27. 
-
+_________________________________________________________________________________________________________________________________________________
+Objection
+1. help security testers dynamically assess Android and iOS applications without needing to recompile or root the device. It automates common tasks like bypassing jailbreak/root detection, dumping credentials, and hooking sensitive functions, making it ideal for real-time app manipulation and behavioral analysis.
+2. runtime mobile instrumentation toolkit built on top of Frida
+3. sudo pip3 install frida-tools --break-system-packages 
+4. install in ANdroid device frida server, Be sure to select the version that matches the device's CPU architecture
+5. adb shell getprop ro.product.cpu.abi - to get anndroid device CPU architecture
+6. python3 -c "import frida; print(frida.__version__)" - to chek which version of frida u have in laptop/kali/OS
+7. 
+                                                      
 _________________________________________________________________________________________________________________________________________________
 
 
@@ -131,4 +140,8 @@ Step 3: below command to find data
 
 **********Android Command***************
 1. jadx-gui myapp.apk
-2. 
+2. pip install objection==1.11.0 frida==16.7.19 frida-tools==13.7.1
+   (THE LATEST ONE HAVE A ISSUE IN FRIDA SO  INSTALL THIS FOR STABLE ONE IN SYSTEM AND ANDROID frida-server-16.7.19-android-arm64, /data/local/tmp, chmod +x <file name>)
+3. ps -A | grep frida (When we get frida sever alredy running after adb shell or running frida server)
+   kill -9 10813 (to kill the server processor)
+
