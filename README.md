@@ -74,7 +74,24 @@ App Interaction	        :Enables interaction with Android's Inter-Process Commun
 Command-line Interface	  :Operates via a powerful CLI, ideal for fast testing, automation, and integration into custom penetration testing workflows or scripts.
 Module-based Architecture :Designed with extensibility in mind, Drozer supports writing custom modules in Python, enabling testers to create app-specific or system-specific security checks.
 
+{
+┌──(kali㉿kali)-[~]
+└─$ adb pair 192.168.1.79:43607 
+Enter pairing code: 779150
+Successfully paired to 192.168.1.79:43607 [guid=adb-28061JEGR08933-I0DFz4]
+                                                                                                                                                                                       
+┌──(kali㉿kali)-[~]
+└─$ adb connect 192.168.1.79:38709  
+connected to 192.168.1.79:38709
+                                                                                                                                                                                       
+┌──(kali㉿kali)-[~]
+└─$ adb forward tcp:31415 tcp:31415
+31415
+                                                                                                                                                                                       
+┌──(kali㉿kali)-[~]
+└─$ drozer console connect
 
+}
 Commands:
 1. adb devices -l
 2. adb -s 28061JEGR08933 tcpip 5555 -> Tell device to listen on TCP 5555 (while USB plugged in)
